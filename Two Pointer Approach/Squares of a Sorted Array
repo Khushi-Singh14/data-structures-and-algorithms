@@ -1,0 +1,66 @@
+class Solution {
+public:
+    vector<int> sortedSquares(vector<int>& nums) {
+        /*for(int i=0; i<nums.size(); i++){
+            nums[i]=nums[i]*nums[i];
+        }
+        sort(nums.begin(),nums.end());
+        return nums;*/
+        vector<int> n;
+        vector<int> p;
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]<0){
+                n.push_back(nums[i]);
+            }
+            else{
+                p.push_back(nums[i]);
+            }
+        }
+        if(n.size()==0){ //+ve array
+            for(int i=0;i<nums.size();i++){
+                nums[i]=nums[i]*nums[i];
+            }
+            return nums;
+        }
+        else if(p.size()==0){//-ve array
+            for(int i=0;i<nums.size();i++){
+                nums[i]=nums[i]*nums[i];
+            }
+            reverse(nums.begin(),nums.end());
+            return nums;
+        }
+        else{//both - and +
+            int i=0; int j=0;
+            int nsize=n.size();
+            int psize=p.size();
+            int k=0;
+            for(int i=0;i<nsize;i++){
+                n[i]=n[i]*n[i];
+            }
+            reverse(n.begin(),n.end());
+            for(int i=0;i<psize;i++){
+                p[i]=p[i]*p[i];
+            }
+            vector<int> res(nums.size());
+            while(i<nsize && j<psize){
+                if(n[i]<=p[j]){
+                    res[k]=n[i];
+                    i++; k++;
+                }
+                else{
+                    res[k]=p[j];
+                    k++; j++;
+                }
+            }
+            while(i<nsize){
+                res[k]=n[i];
+                i++; k++;
+            }
+            while(j<psize){
+                res[k]=p[j];
+                j++; k++;
+            }
+            return res;
+        }
+    }
+};
