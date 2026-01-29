@@ -1,0 +1,11 @@
+class Solution {
+public:
+    int maxNumberOfBalloons(string text) {
+        unordered_map<char,int> f;
+        for(int i=0;i<text.size();i++){
+            f[text[i]]++;
+        }
+        int res=min({f['b'],f['a'],f['l']/2,f['o']/2,f['n']});
+        return res;
+    }
+};
