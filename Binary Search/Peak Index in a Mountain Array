@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int peakIndexInMountainArray(vector<int>& arr) {
+        int low = 0;
+        int high =
+            arr.size() - 2; // if high=n-1 then mid+1 pe out of bounds ja sakta
+                            // hai hence to make sure mid+1 exist...high = n-2
+        int peak = 0;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (arr[mid] >= arr[mid + 1]) {
+                peak = mid;
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return peak;
+    }
+};
