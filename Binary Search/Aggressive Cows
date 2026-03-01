@@ -1,0 +1,35 @@
+class Solution {
+  public:
+    int aggressive(vector<int> &stalls, int mid, int k){
+        int n=stalls.size();
+        int cows=1;
+        int prevpos=stalls[0]; //placed 1st cow at a[0]
+        for(int i=0;i<n;i++){
+            int dist=stalls[i]-prevpos;
+            if(dist<mid) continue;
+            cows++;
+            prevpos=stalls[i];
+        }
+        if(cows>=k) return true;
+        else return false;
+    }
+
+    int aggressiveCows(vector<int> &stalls, int k) {
+        // code here
+        sort(stalls.begin(),stalls.end());
+        int n=stalls.size();
+        int low=0;
+        int high=stalls[n-1]-stalls[0];
+        int res=-1;
+        while(low<=high){
+            int mid=low+(high-low)/2; 
+            if(aggressive(stalls,mid, k)){
+                res=mid;
+                low=mid+1;
+            }
+            else high=mid-1;
+            
+        }
+        return res;
+    }
+};
