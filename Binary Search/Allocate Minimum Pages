@@ -1,0 +1,39 @@
+class Solution {
+  public:
+    int pages(vector <int> &arr, int k, int mid){
+        int student=1;
+        int pages=0;//initially nothing is aloocated
+        int n=arr.size();
+        for(int i=0;i<n;i++){
+            int allocate=pages+arr[i];
+            if(allocate<=mid){
+                pages+=arr[i]; //allocate the book
+            }
+            else{
+                student++;
+                pages=arr[i];
+            } 
+            if(student>k) return false;
+        }
+        return true;
+    }
+    int findPages(vector<int> &arr, int k) {
+        if(k>arr.size()) return -1;
+        int sum=0;
+        int res=-1;
+        for(int i=0;i<arr.size();i++){
+            sum+=arr[i];
+        }
+        int low=*max_element(arr.begin(),arr.end());
+        int high=sum;
+        while(low<=high){
+            int mid=low+(high-low)/2;
+            if(pages(arr,k,mid)){
+                res=mid;
+                high=mid-1; //as we have to minimize the limit, find smaller solution possible
+            }
+            else low=mid+1;
+        }
+        return res;
+    }
+};
