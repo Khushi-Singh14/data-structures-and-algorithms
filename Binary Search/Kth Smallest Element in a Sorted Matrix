@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int find(vector<vector<int>>& matrix, int m, int n, int k, int mid){
+        int row=m-1, col=0;
+        int count=0;
+        while(row>=0 && col<n){
+            if(matrix[row][col]<=mid){
+                count+=row+1;
+                col++;
+            }
+            else row--;
+        }
+        return count;
+    }
+    int kthSmallest(vector<vector<int>>& matrix, int k) {
+        int m=matrix.size();
+        int n=matrix[0].size();
+        int low=matrix[0][0];
+        int high=matrix[m-1][n-1];
+        int res=0;
+        while(low<=high){
+            int mid=low+(high-low)/2;
+            int ans=find(matrix,m,n,k,mid);
+            if(ans<k) low=mid+1;
+            //if(ans>k) this case can NEVER be the answer;
+            else{
+                res= mid; //now find first occurence
+                high=mid-1;
+            } 
+        }
+        return res;
+    }
+};
