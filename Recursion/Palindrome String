@@ -1,0 +1,12 @@
+class Solution {
+  public:
+    bool pal(string& s, int low, int high){
+        if(low>=high) return true;
+        if(s[low]!=s[high]) return false;
+        return pal(s,low+1,high-1);
+    }
+    bool isPalindrome(string& s) {
+        // code here
+        return pal(s,0,s.size()-1);
+    }
+};
