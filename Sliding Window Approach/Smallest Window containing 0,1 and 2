@@ -1,0 +1,24 @@
+class Solution {
+  public:
+    int smallestSubstring(string s) {
+        // code here
+        int low=0; 
+        int high=0;
+        unordered_map<int,int> f;
+        int len=0;
+        int res=INT_MAX;
+        while(high<s.size()){
+            f[s[high]]++;
+            while(f.size()>2){
+                len=high-low+1;
+                res=min(res,len);
+                f[s[low]]--;
+                if(f[s[low]]==0) f.erase(s[low]);
+                low++;
+            }
+            high++;
+        }
+        if(res==INT_MAX) return -1;
+        return res;
+    }
+};
