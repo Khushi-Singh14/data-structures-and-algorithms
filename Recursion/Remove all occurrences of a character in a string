@@ -1,0 +1,12 @@
+class Solution {
+  public:
+    string fun(string &s, int i, int n, char c){
+        if(i==n) return "";
+        string ans=fun(s,i+1,n,c);
+        if(s[i]==c) return ans;
+        return s[i]+ans;
+    }
+    void removeCharacter(string &s, char c) {
+        s=fun(s,0,s.size(),c);
+    }
+};
