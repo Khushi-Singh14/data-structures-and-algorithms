@@ -1,0 +1,28 @@
+class Solution {
+public:
+    void fun(vector<int>&arr, int n, int idx, vector<int>&diary, vector<vector<int>>&res, int sum, int target){
+        if(idx==n){
+            if(sum==target)
+                res.push_back(diary);
+            return;
+        }
+        fun(arr,n,idx+1,diary,res,sum,target); //if no choice made
+        //if choice made
+        if(arr[idx]+sum<=target){
+            diary.push_back(arr[idx]);
+            sum+=arr[idx];
+            fun(arr,n,idx,diary,res,sum,target);
+            diary.pop_back();
+            sum-=arr[idx];
+        }
+    }
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        int n=candidates.size();
+        vector<int>diary;
+        vector<vector<int>>res;
+        int sum=0;
+        int idx=0;
+        fun(candidates,n,idx,diary,res,sum,target);
+        return res;
+    }
+};
